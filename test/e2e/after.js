@@ -1,4 +1,3 @@
-/* global after */
 'use strict';
 
 let Users = require('../../app/users/users.model.js');

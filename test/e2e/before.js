@@ -1,4 +1,3 @@
-/* global before */
 'use strict';
 
 let config = require('../../config');
