@@ -1,0 +1,43 @@
+{
+  "name": "spotippos-api",
+  "version": "1.0.0",
+  "private": true,
+  "main": "app/index.js",
+  "scripts": {
+    "start": "scripts/start",
+    "test": "scripts/test"
+  },
+  "apidoc": {
+    "title": "Title API",
+    "url": "http://api.com",
+    "template": {
+      "forceLanguage": "en",
+      "withCompare": false,
+      "withGenerator": false
+    }
+  },
+  "dependencies": {
+    "express": "^4.13.1",
+    "body-parser": "^1.13.2",
+    "compression": "^1.5.1",
+    "serve-favicon": "^2.3.0",
+    "method-override": "^2.3.4",
+    "mongoose": "^4.1.0",
+    "bluebird": "^3.1.1",
+    "morgan": "^1.6.1",
+    "multer": "^1.0.5",
+    "jsonwebtoken": "^5.0.5",
+    "shell-arguments": "^1.0.4"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.3",
+    "chai": "^3.4.0",
+    "istanbul": "^0.4.0",
+    "coveralls": "^2.11.4",
+    "chai-http": "^1.0.0",
+    "faker": "^3.0.1",
+    "gulp-apidoc": "^0.2.0",
+    "gulp-nodemon": "^2.0.3",
+    "gulp-eslint": "^2.0.0"
+  }
+}
