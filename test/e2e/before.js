@@ -5,6 +5,7 @@ let helper = require('../helper.js');
 
 before(mongooseConnect);
 before(createUser);
+before(createProperty);
 
 function mongooseConnect(done){
   let mongoose = require('mongoose');
@@ -25,4 +26,17 @@ function createUser(done) {
       helper.user.invalidPassword = helper.user.password.replace(/^.{2}/, 'dd');
       return done();
     });
+}
+
+function createProperty(done) {
+  let Properties = require('../../app/properties/properties.model.js');
+  let propety = new Properties(helper.property);
+
+  propety
+    .save()
+    .then(function(propety) {
+      helper.property._id = propety._id;
+      return done();
+    })
+    .catch(err => console.log(err));
 }

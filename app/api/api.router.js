@@ -8,6 +8,17 @@ let router = express.Router();
 router.param('id', middlewares.id);
 
 router
+  .route('/properties')
+  .get(api.properties.list)
+  .post(api.properties.create);
+
+router
+  .route('/properties/:id')
+  .get(api.properties.single)
+  .put(api.properties.update)
+  .delete(api.properties.remove);
+
+router
   .route('/authentication')
   .post(api.authentication.local);
 
