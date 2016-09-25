@@ -39,6 +39,24 @@ describe('Properties', function() {
           done();
         });
     });
+
+    it('list properties with specific fields', function(done) {
+      request(app)
+        .get('/properties?fields=title,description')
+        .then(function(res) {
+          expect(res.statusCode).to.equal(200);
+          expect(res.body).to.be.instanceOf(Array);
+          expect(res.body).all.have.property('title');
+          expect(res.body).all.have.property('description');
+          expect(res.body).all.not.have.property('x');
+          expect(res.body).all.not.have.property('y');
+          expect(res.body).all.not.have.property('price');
+          expect(res.body).all.not.have.property('beds');
+          expect(res.body).all.not.have.property('baths');
+          expect(res.body).all.not.have.property('squareMeters');
+          done();
+        });
+    });
   });
 
   describe('.create - POST /properties', function() {

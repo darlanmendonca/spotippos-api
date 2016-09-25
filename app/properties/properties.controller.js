@@ -3,6 +3,9 @@
 let Properties = require('./properties.model.js');
 let ObjectId = require('mongoose').Types.ObjectId;
 let publicFields = '-__v';
+let helpers = require('../helpers.js');
+let paginate = helpers.paginate;
+let filterFields = helpers.filterFields(publicFields);
 
 let PropertiesController = {
   list,
@@ -24,7 +27,7 @@ function list(req, res) {
     */
 
   Properties
-    .find({}, publicFields)
+    .find({}, filterFields(req.query), paginate(req.query))
     .then(response);
 
   function response(properties) {
@@ -50,7 +53,7 @@ function single(req, res) {
   let _id = new ObjectId(req.params.id);
 
   Properties
-    .findOne({_id}, publicFields)
+    .findOne({_id}, filterFields(req.query))
     .then(response);
 
   function response(property) {
