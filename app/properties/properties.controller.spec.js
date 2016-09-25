@@ -6,6 +6,7 @@ let faker = require('faker');
 
 let chai = require('chai');
 chai.use(require('chai-http'));
+chai.use(require('chai-things'));
 let request = chai.request;
 let expect = chai.expect;
 
@@ -26,8 +27,15 @@ describe('Properties', function() {
         .get('/properties')
         .then(function(res) {
           expect(res.statusCode).to.equal(200);
-          console.log(res.body);
           expect(res.body).to.be.instanceOf(Array);
+          expect(res.body).all.have.property('x');
+          expect(res.body).all.have.property('y');
+          expect(res.body).all.have.property('title');
+          expect(res.body).all.have.property('price');
+          expect(res.body).all.have.property('description');
+          expect(res.body).all.have.property('beds');
+          expect(res.body).all.have.property('baths');
+          expect(res.body).all.have.property('squareMeters');
           done();
         });
     });

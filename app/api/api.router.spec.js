@@ -9,10 +9,10 @@ let request = chai.request;
 let expect = chai.expect;
 
 describe('API', function() {
-  describe('not found - GET /api/chiforimfola', function() {
+  describe('not found - GET /strange-url', function() {
     it('no token provided', function(done) {
       request(app)
-        .get('/api/chiforimfola')
+        .get('/strange-url')
         .then(function(res) {
           expect(res.statusCode).to.equal(401);
           expect(res.body).to.have.property('message', 'no token provided');
@@ -22,7 +22,7 @@ describe('API', function() {
 
     it('invalid token', function(done) {
       request(app)
-        .get('/api/chiforimfola')
+        .get('/strange-url')
         .set('token', helper.user.invalidToken)
         .then(function(res) {
           expect(res.statusCode).to.be.equal(401);
@@ -33,7 +33,7 @@ describe('API', function() {
 
     it('404 not found', function(done) {
       request(app)
-        .get('/api/chiforimfola')
+        .get('/strange-url')
         .set('token', helper.user.token)
         .then(function(res) {
           expect(res.statusCode).to.equal(404);
