@@ -159,7 +159,20 @@ function update(req, res) {
     * @apiGroup Properties
     * @apiPermission Public
     *
-    * @apiParam (204) {String} message message status
+    * @apiParam (204) {String} message body dont return response in body, just status code
+    *
+    * @apiError (400) BadRequest Return a list of invalid fields, and details about error
+    *
+    * @apiErrorExample {json} Error-Response:
+    *     HTTP/1.1 400 Bad Request
+    *     {
+    *       beds: {
+    *         message: 'Path `beds` (10) is more than maximum allowed value (5).',
+    *         kind: 'max',
+    *         path: 'beds',
+    *         value: 10
+    *       }
+    *     }
     */
 
   let _id = new ObjectId(req.params.id);
@@ -168,31 +181,30 @@ function update(req, res) {
     .findOne({_id})
     .then(updateKeys)
     .then(save)
-    .then(response);
-    // .catch(badRequest);
+    .then(response)
+    .catch(badRequest);
 
-  function updateKeys(user) {
+  function updateKeys(property) {
     for (let key in req.body) {
-      user[key] = req.body[key];
+      property[key] = req.body[key];
     }
 
-    return user;
+    return property;
   }
 
-  function save(user) {
-    return user.save();
+  function save(property) {
+    return property.save();
   }
 
   function response() {
-    let message = 'updated';
     res
       .status(204)
-      .json({message});
+      .json({});
   }
 
-  // function badRequest(err) {
-  //   res
-  //     .status(400)
-  //     .json(err.errors);
-  // }
+  function badRequest(err) {
+    res
+      .status(400)
+      .json(err.errors);
+  }
 };

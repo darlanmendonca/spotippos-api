@@ -187,7 +187,6 @@ describe('Properties', function() {
           done();
         });
     });
-
   });
 
   describe('.update - PUT /properties/:id', function() {
@@ -197,52 +196,29 @@ describe('Properties', function() {
         .field('title', 'lorem ipsum 1')
         .then(function(res) {
           expect(res.statusCode).to.equal(204);
-          expect(res.body).to.have.property('message', 'updated');
+          expect(res.body).to.be.empty;
           done();
         });
     });
 
-    it('update an user', function(done) {
+    it('update an property', function(done) {
       request(app)
         .put(`/properties/${helper.property._id}`)
         .field('title', 'lorem ipsum 2')
         .then(function(res) {
           expect(res.statusCode).to.equal(204);
-          expect(res.body).to.have.property('message', 'updated');
-          done();
-        });
-    });
-  });
-
-  describe('.delete - DELETE /properties/:id', function() {
-    xit('no token provided', function(done) {
-      request(app)
-        .delete(`/properties/${helper.property._id}`)
-        .then(function(res) {
-          expect(res.statusCode).to.equal(401);
-          expect(res.body).to.have.property('message', 'no token provided');
-          done();
-        });
-    });
-
-    xit('invalid token', function(done) {
-      request(app)
-        .delete(`/properties/${helper.property._id}`)
-        .field('token', helper.property.invalidToken)
-        .then(function(res) {
-          expect(res.statusCode).to.equal(401);
-          expect(res.body).to.have.property('message', 'invalid token');
-          done();
-        });
-    });
-
-    xit('delete an user', function(done) {
-      request(app)
-        .delete(`/properties/${helper.property._id}`)
-        .set('token', helper.property.token)
-        .then(function(res) {
-          expect(res.statusCode).to.equal(204);
           expect(res.body).to.be.empty;
+          done();
+        });
+    });
+
+    it('invalid fields', function(done) {
+      request(app)
+        .put(`/properties/${helper.property._id}`)
+        .field('baths', 10)
+        .then(function(res) {
+          expect(res.statusCode).to.equal(400);
+          expect(res.body).to.have.property('baths');
           done();
         });
     });
