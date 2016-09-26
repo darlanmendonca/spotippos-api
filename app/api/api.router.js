@@ -15,8 +15,7 @@ router
 router
   .route('/properties/:id')
   .get(api.properties.single)
-  .put(api.properties.update)
-  .delete(api.properties.remove);
+  .put(api.properties.update);
 
 router
   .route('/authentication')

@@ -33,7 +33,7 @@ module.exports = {
     'eol-last': required,
     eqeqeq: [required, 'smart'],
     'max-depth': [optional, 3],
-    'max-len': [optional, 120],
+    'max-len': [optional, 200],
     'max-statements': [optional, 15],
     'no-extend-native': required,
     'no-mixed-spaces-and-tabs': required,

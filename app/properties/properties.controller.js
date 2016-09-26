@@ -12,7 +12,6 @@ let PropertiesController = {
   single,
   create,
   update,
-  remove,
 };
 
 module.exports = PropertiesController;
@@ -99,14 +98,14 @@ function create(req, res) {
     * @apiGroup Properties
     * @apiPermission Public
     *
-    * @apiParam {Number} x coodinate x of property
-    * @apiParam {Number} y coordinate y of property
-    * @apiParam {String} title a title/name of property, to short description
-    * @apiParam {Number} price value of property
-    * @apiParam {String} description a long description about property
-    * @apiParam {Number{1..5}} beds number of rooms in property
-    * @apiParam {Number{1..4}} baths number of baths in property
-    * @apiParam {Number{20..240}} squareMeters total area of property
+    * @apiParam (201) {Number} x coodinate x of property
+    * @apiParam (201) {Number} y coordinate y of property
+    * @apiParam (201) {String} title a title/name of property, to short description
+    * @apiParam (201) {Number} price value of property
+    * @apiParam (201) {String} description a long description about property
+    * @apiParam (201) {Number{1..5}} beds number of rooms in property
+    * @apiParam (201) {Number{1..4}} baths number of baths in property
+    * @apiParam (201) {Number{20..240}} squareMeters total area of property
     *
     * @apiSuccess (201) {String} id id of property, to future requests
     *
@@ -159,6 +158,8 @@ function update(req, res) {
     * @apiName update
     * @apiGroup Properties
     * @apiPermission Public
+    *
+    * @apiParam (204) {String} message message status
     */
 
   let _id = new ObjectId(req.params.id);
@@ -183,9 +184,10 @@ function update(req, res) {
   }
 
   function response() {
+    let message = 'updated';
     res
       .status(204)
-      .json();
+      .json({message});
   }
 
   // function badRequest(err) {
@@ -193,25 +195,4 @@ function update(req, res) {
   //     .status(400)
   //     .json(err.errors);
   // }
-};
-
-function remove(req, res) {
-  /**
-    * @api {DELETE} /properties/:id delete
-    * @apiDescription Delete a property
-    * @apiName delete
-    * @apiGroup Properties
-    * @apiPermission Public
-    */
-
-  Properties
-    .findByIdAndRemove(req.params.id)
-    .then(response);
-    // .catch(notFound);
-
-  function response() {
-    res
-      .status(204)
-      .json();
-  }
 };

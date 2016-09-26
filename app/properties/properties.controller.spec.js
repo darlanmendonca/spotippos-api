@@ -191,35 +191,24 @@ describe('Properties', function() {
   });
 
   describe('.update - PUT /properties/:id', function() {
-    xit('no token provided', function(done) {
+    it('no token provided', function(done) {
       request(app)
         .put(`/properties/${helper.property._id}`)
-        .then(function(res) {
-          expect(res.statusCode).to.equal(401);
-          expect(res.body).to.have.property('message', 'no token provided');
-          done();
-        });
-    });
-
-    xit('invalid token', function(done) {
-      request(app)
-        .put(`/properties/${helper.property._id}`)
-        .field('token', helper.property.invalidToken)
-        .then(function(res) {
-          expect(res.statusCode).to.equal(401);
-          expect(res.body).to.have.property('message', 'invalid token');
-          done();
-        });
-    });
-
-    xit('update an user', function(done) {
-      request(app)
-        .put(`/properties/${helper.property._id}`)
-        .set('token', helper.property.token)
-        .field('email', 'darlanmendonca@gmail.com')
+        .field('title', 'lorem ipsum 1')
         .then(function(res) {
           expect(res.statusCode).to.equal(204);
-          expect(res.body).to.be.empty;
+          expect(res.body).to.have.property('message', 'updated');
+          done();
+        });
+    });
+
+    it('update an user', function(done) {
+      request(app)
+        .put(`/properties/${helper.property._id}`)
+        .field('title', 'lorem ipsum 2')
+        .then(function(res) {
+          expect(res.statusCode).to.equal(204);
+          expect(res.body).to.have.property('message', 'updated');
           done();
         });
     });
