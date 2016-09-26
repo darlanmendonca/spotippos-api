@@ -114,30 +114,27 @@ describe('Properties', function() {
   });
 
   describe('.single - GET /properties/:id', function() {
-    xit('no token provided', function(done) {
+    it('no token provided', function(done) {
       request(app)
         .get(`/properties/${helper.property._id}`)
         .then(function(res) {
-          expect(res.statusCode).to.equal(401);
-          expect(res.body).to.have.property('message', 'no token provided');
+          expect(res.statusCode).to.equal(200);
+          expect(res.body).to.have.property('_id', helper.property._id.toString());
+          expect(res.body).to.have.property('x', helper.property.x);
+          expect(res.body).to.have.property('y', helper.property.y);
+          expect(res.body).to.have.property('title', helper.property.title);
+          expect(res.body).to.have.property('price', helper.property.price);
+          expect(res.body).to.have.property('description', helper.property.description);
+          expect(res.body).to.have.property('beds', helper.property.beds);
+          expect(res.body).to.have.property('baths', helper.property.baths);
+          expect(res.body).to.have.property('squareMeters', helper.property.squareMeters);
           done();
         });
     });
 
-    xit('invalid token', function(done) {
-      request(app)
-        .get(`/properties/${helper.property._id}?token=${helper.property.invalidToken}`)
-        .then(function(res) {
-          expect(res.statusCode).to.equal(401);
-          expect(res.body).to.have.property('message', 'invalid token');
-          done();
-        });
-    });
-
-    xit('not found', function(done) {
+    it('not found', function(done) {
       request(app)
         .get(`/properties/${helper.property._id.toString().replace(/^.{2}/, 'dd')}`)
-        .set('token', helper.property.token)
         .then(function(res) {
           expect(res.statusCode).to.equal(204);
           expect(res.body).to.deep.equal({});
@@ -145,10 +142,9 @@ describe('Properties', function() {
         });
     });
 
-    xit('invalid id', function(done) {
+    it('invalid id', function(done) {
       request(app)
         .get('/properties/:id'.replace(':id', '123'))
-        .set('token', helper.property.token)
         .then(function(res) {
           expect(res.statusCode).to.equal(400);
           expect(res.body).to.have.property('message', 'invalid id');
@@ -156,20 +152,42 @@ describe('Properties', function() {
         });
     });
 
-    xit('get an user', function(done) {
+    it('get a property', function(done) {
       request(app)
         .get(`/properties/${helper.property._id.toString()}`)
-        .set('token', helper.property.token)
         .then(function(res) {
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.have.property('_id', helper.property._id.toString());
-          expect(res.body).to.have.property('email', helper.property.email);
-          expect(res.body).to.have.property('createdAt');
-          expect(res.body).to.not.have.property('password');
-          expect(res.body).to.not.have.property('__v');
+          expect(res.body).to.have.property('x', helper.property.x);
+          expect(res.body).to.have.property('y', helper.property.y);
+          expect(res.body).to.have.property('title', helper.property.title);
+          expect(res.body).to.have.property('price', helper.property.price);
+          expect(res.body).to.have.property('description', helper.property.description);
+          expect(res.body).to.have.property('beds', helper.property.beds);
+          expect(res.body).to.have.property('baths', helper.property.baths);
+          expect(res.body).to.have.property('squareMeters', helper.property.squareMeters);
           done();
         });
     });
+
+    it('get a property with specific fields', function(done) {
+      request(app)
+        .get(`/properties/${helper.property._id.toString()}?fields=title,description`)
+        .then(function(res) {
+          expect(res.statusCode).to.equal(200);
+          expect(res.body).to.have.property('_id', helper.property._id.toString());
+          expect(res.body).to.have.property('title', helper.property.title);
+          expect(res.body).to.have.property('description', helper.property.description);
+          expect(res.body).to.not.have.property('x');
+          expect(res.body).to.not.have.property('y');
+          expect(res.body).to.not.have.property('price');
+          expect(res.body).to.not.have.property('beds');
+          expect(res.body).to.not.have.property('baths');
+          expect(res.body).to.not.have.property('squareMeters');
+          done();
+        });
+    });
+
   });
 
   describe('.update - PUT /properties/:id', function() {

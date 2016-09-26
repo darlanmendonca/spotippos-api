@@ -25,16 +25,16 @@ function list(req, res) {
     * @apiGroup Properties
     * @apiPermission Public
     *
-    * @apiParam {String='x,y,title,price,description,beds,baths,squareMeters'} fields query string, used to filter params in response
+    * @apiParam {QueryString='x,y,title,price,description,beds,baths,squareMeters'} fields used to filter params in response
     *
-    * @apiSuccess {String} x coordinate x from property
-    * @apiSuccess {String} y coordinate y from property
-    * @apiSuccess {String} title short description about property
-    * @apiSuccess {String} price total value to revenue of property
-    * @apiSuccess {String} description long description about property
-    * @apiSuccess {Number} beds total of rooms in property
-    * @apiSuccess {Number} baths total of baths in property
-    * @apiSuccess {String} squareMeters total area of property
+    * @apiSuccess (200, 204) {String} x coordinate x from property
+    * @apiSuccess (200, 204) {String} y coordinate y from property
+    * @apiSuccess (200, 204) {String} title short description about property
+    * @apiSuccess (200, 204) {String} price total value to revenue of property
+    * @apiSuccess (200, 204) {String} description long description about property
+    * @apiSuccess (200, 204) {Number} beds total of rooms in property
+    * @apiSuccess (200, 204) {Number} baths total of baths in property
+    * @apiSuccess (200, 204) {String} squareMeters total area of property
     *
     */
 
@@ -61,16 +61,16 @@ function single(req, res) {
     * @apiGroup Properties
     * @apiPermission Public
     *
-    * @apiParam {String='x,y,title,price,description,beds,baths,squareMeters'} fields query string, used to filter params in response
+    * @apiParam {QueryString='x,y,title,price,description,beds,baths,squareMeters'} fields used to filter params in response
     *
-    * @apiSuccess {String} x coordinate x from property
-    * @apiSuccess {String} y coordinate y from property
-    * @apiSuccess {String} title short description about property
-    * @apiSuccess {String} price total value to revenue of property
-    * @apiSuccess {String} description long description about property
-    * @apiSuccess {Number} beds total of rooms in property
-    * @apiSuccess {Number} baths total of baths in property
-    * @apiSuccess {String} squareMeters total area of property
+    * @apiSuccess (200, 204) {String} x coordinate x from property
+    * @apiSuccess (200, 204) {String} y coordinate y from property
+    * @apiSuccess (200, 204) {String} title short description about property
+    * @apiSuccess (200, 204) {String} price total value to revenue of property
+    * @apiSuccess (200, 204) {String} description long description about property
+    * @apiSuccess (200, 204) {Number} beds total of rooms in property
+    * @apiSuccess (200, 204) {Number} baths total of baths in property
+    * @apiSuccess (200, 204) {String} squareMeters total area of property
     *
     */
 
