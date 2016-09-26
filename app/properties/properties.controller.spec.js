@@ -2,7 +2,7 @@
 
 let helper = require('../../test/helper.js');
 let app = require('../index.js');
-let faker = require('faker');
+// let faker = require('faker');
 
 let chai = require('chai');
 chai.use(require('chai-http'));
@@ -60,49 +60,53 @@ describe('Properties', function() {
   });
 
   describe('.create - POST /properties', function() {
-    xit('no token provided', function(done) {
+    it('no token provided', function(done) {
       request(app)
         .post('/properties')
-        .then(function(res) {
-          expect(res.statusCode).to.equal(401);
-          expect(res.body).to.have.property('message', 'no token provided');
-          done();
-        });
-    });
-
-    xit('invalid token', function(done) {
-      request(app)
-        .post('/properties')
-        .field('token', helper.property.invalidToken)
-        .then(function(res) {
-          expect(res.statusCode).to.equal(401);
-          expect(res.body).to.have.property('message', 'invalid token');
-          done();
-        });
-    });
-
-    xit('invalid fields', function(done) {
-      request(app)
-        .post('/properties')
-        .set('token', helper.property.token)
-        .field('test', 'true')
         .then(function(res) {
           expect(res.statusCode).to.equal(400);
-          expect(res.body).to.have.property('password');
-          expect(res.body).to.have.property('email');
+          expect(res.body).to.have.property('x');
+          expect(res.body).to.have.property('y');
+          expect(res.body).to.have.property('title');
+          expect(res.body).to.have.property('price');
+          expect(res.body).to.have.property('description');
+          expect(res.body).to.have.property('beds');
+          expect(res.body).to.have.property('baths');
+          expect(res.body).to.have.property('squareMeters');
           done();
         });
     });
 
-    xit('create an user', function(done) {
+    it('invalid fields', function(done) {
       request(app)
         .post('/properties')
-        .set('token', helper.property.token)
-        .field('test', 'true')
-        .field('email', faker.internet.email())
-        .field('password', faker.internet.password())
         .then(function(res) {
-          expect(res.statusCode).to.equal(201);
+          expect(res.statusCode).to.equal(400);
+          expect(res.body).to.have.property('x');
+          expect(res.body).to.have.property('y');
+          expect(res.body).to.have.property('title');
+          expect(res.body).to.have.property('price');
+          expect(res.body).to.have.property('description');
+          expect(res.body).to.have.property('beds');
+          expect(res.body).to.have.property('baths');
+          expect(res.body).to.have.property('squareMeters');
+          done();
+        });
+    });
+
+    xit('create a property with wrong coodirnate', function(done) {
+      request(app)
+        .post('/properties')
+        .field('x', helper.newProperty.x)
+        .field('y', helper.newProperty.y)
+        .field('title', helper.newProperty.title)
+        .field('price', helper.newProperty.price)
+        .field('description', helper.newProperty.description)
+        .field('beds', helper.newProperty.beds)
+        .field('baths', helper.newProperty.baths)
+        .field('squareMeters', helper.newProperty.squareMeters)
+        .then(function(res) {
+          expect(res.statusCode).to.equal(400);
           expect(res.body).to.have.property('id');
           done();
         });

@@ -24,6 +24,18 @@ function list(req, res) {
     * @apiName list
     * @apiGroup Properties
     * @apiPermission Public
+    *
+    * @apiParam {String='x,y,title,price,description,beds,baths,squareMeters'} fields query string, used to filter params in response
+    *
+    * @apiSuccess {String} x coordinate x from property
+    * @apiSuccess {String} y coordinate y from property
+    * @apiSuccess {String} title short description about property
+    * @apiSuccess {String} price total value to revenue of property
+    * @apiSuccess {String} description long description about property
+    * @apiSuccess {Number} beds total of rooms in property
+    * @apiSuccess {Number} baths total of baths in property
+    * @apiSuccess {String} squareMeters total area of property
+    *
     */
 
   Properties
@@ -48,6 +60,18 @@ function single(req, res) {
     * @apiName single
     * @apiGroup Properties
     * @apiPermission Public
+    *
+    * @apiParam {String='x,y,title,price,description,beds,baths,squareMeters'} fields query string, used to filter params in response
+    *
+    * @apiSuccess {String} x coordinate x from property
+    * @apiSuccess {String} y coordinate y from property
+    * @apiSuccess {String} title short description about property
+    * @apiSuccess {String} price total value to revenue of property
+    * @apiSuccess {String} description long description about property
+    * @apiSuccess {Number} beds total of rooms in property
+    * @apiSuccess {Number} baths total of baths in property
+    * @apiSuccess {String} squareMeters total area of property
+    *
     */
 
   let _id = new ObjectId(req.params.id);
@@ -83,6 +107,27 @@ function create(req, res) {
     * @apiParam {Number{1..5}} beds number of rooms in property
     * @apiParam {Number{1..4}} baths number of baths in property
     * @apiParam {Number{20..240}} squareMeters total area of property
+    *
+    * @apiSuccess (201) {String} id id of property, to future requests
+    *
+    * @apiError (400) BadRequest Return a list of invalid fields, and details about error
+    *
+    * @apiErrorExample {json} Error-Response:
+    *     HTTP/1.1 400 Bad Request
+    *     {
+    *       x: {
+    *         message: 'Path `x` is required.',
+    *         name: 'ValidatiorError',
+    *         path: 'x',
+    *       },
+    *       beds: {
+    *         message: 'Path `beds` (10) is more than maximum allowed value (5).',
+    *         kind: 'max',
+    *         path: 'beds',
+    *         value: 10
+    *       }
+    *     }
+    *
     */
 
   let property = new Properties(req.body);

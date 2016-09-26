@@ -25,4 +25,15 @@ module.exports = {
     baths: 3,
     squareMeters: 210,
   },
+
+  newProperty: {
+    x: 200,
+    y: 780,
+    title: 'Imóvel código 2, com 2 quartos e 1 banheiro',
+    price: 900000,
+    description: 'Lorem ipsum dolor sit amet',
+    beds: 2,
+    baths: 1,
+    squareMeters: 120,
+  },
 };
