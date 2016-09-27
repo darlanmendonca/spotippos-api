@@ -28,6 +28,7 @@ describe('Properties', function() {
         .then(function(res) {
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.instanceOf(Array);
+          expect(res.body).all.have.property('_id');
           expect(res.body).all.have.property('x');
           expect(res.body).all.have.property('y');
           expect(res.body).all.have.property('title');
@@ -46,6 +47,7 @@ describe('Properties', function() {
         .then(function(res) {
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.instanceOf(Array);
+          expect(res.body).all.have.property('_id');
           expect(res.body).all.have.property('title');
           expect(res.body).all.have.property('description');
           expect(res.body).all.not.have.property('x');
@@ -54,6 +56,38 @@ describe('Properties', function() {
           expect(res.body).all.not.have.property('beds');
           expect(res.body).all.not.have.property('baths');
           expect(res.body).all.not.have.property('squareMeters');
+          done();
+        });
+    });
+
+    it('list properties from a region, and specific fields', function(done) {
+      request(app)
+        .get('/properties')
+        .query({
+          ax: 200,
+          ay: 400,
+          bx: 300,
+          by: 500,
+          fields: [
+            'title',
+            'description',
+            'x',
+            'y',
+          ].join(),
+        })
+        .then(function(res) {
+          console.log(res.body);
+          expect(res.statusCode).to.equal(200);
+          expect(res.body).to.be.instanceOf(Array);
+          // expect(res.body).all.have.property('_id');
+          // expect(res.body).all.have.property('title');
+          // expect(res.body).all.have.property('description');
+          // expect(res.body).all.have.property('x');
+          // expect(res.body).all.have.property('y');
+          // expect(res.body).all.not.have.property('price');
+          // expect(res.body).all.not.have.property('beds');
+          // expect(res.body).all.not.have.property('baths');
+          // expect(res.body).all.not.have.property('squareMeters');
           done();
         });
     });

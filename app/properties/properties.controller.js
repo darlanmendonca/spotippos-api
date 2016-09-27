@@ -37,8 +37,23 @@ function list(req, res) {
     *
     */
 
+  let query = {};
+  let hasCoordinantes = Object.hasOwnProperty(req.query.ax)
+    && Object.hasOwnProperty(req.query.ay)
+    && Object.hasOwnProperty(req.query.bx)
+    && Object.hasOwnProperty(req.query.by);
+
+  if (hasCoordinantes) {
+    query.$and = [
+      {x: {$gte: req.query.ax}},
+      {x: {$gte: req.query.bx}},
+      {y: {$gte: req.query.ay}},
+      {y: {$gte: req.query.by}},
+    ];
+  }
+
   Properties
-    .find({}, filterFields(req.query), paginate(req.query))
+    .find(query, filterFields(req.query), paginate(req.query))
     .then(response);
 
   function response(properties) {
